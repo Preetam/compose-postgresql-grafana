@@ -1,0 +1,18 @@
+grafana:
+  build: ./grafana
+  container_name: grafana
+  ports:
+    - "3000:3000"
+  links:
+    - postgres
+  environment:
+    GF_USERS_DEFAULT_THEME: "light"
+
+postgres:
+  image: postgres:latest
+  container_name: postgres
+
+testdata:
+  build: ./testdata
+  links:
+    - postgres
