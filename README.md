@@ -2,6 +2,8 @@
 
 PostgreSQL + Grafana with test data running in Docker Compose.
 
+![Screenshot](https://user-images.githubusercontent.com/379404/54157577-d3c5ed80-4405-11e9-875e-d6253789dbd9.png)
+
 ## Getting started
 
 Run Docker Compose:
