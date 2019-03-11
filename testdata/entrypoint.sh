@@ -27,3 +27,7 @@ for try in {1..10}; do
 done
 
 run_file /data.sql
+
+for i in {1..100}; do
+  run_file /pipeline_data.sql
+done

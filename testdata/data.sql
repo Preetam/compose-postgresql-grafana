@@ -14,3 +14,12 @@ insert into users values ('felix', now() - interval '2 days');
 insert into users values ('george', now() - interval '1 days');
 insert into users values ('harvey', now() - interval '1 days');
 insert into users values ('ian', now() - interval '0 days');
+
+DROP TABLE IF EXISTS pipeline_stages;
+CREATE TABLE pipeline_stages (
+    project text,
+    stage integer,
+    started timestamp with time zone,
+    ended timestamp with time zone,
+    failed bool
+);
