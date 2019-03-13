@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "iteration": 1552503932808,
   "links": [],
   "panels": [
     {
@@ -93,7 +94,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(started),\n  'Stage ' || stage::text as metric,\n  extract(epoch from ended-started)\nFROM\n  pipeline_stages\nWHERE\n  $__timeFilter(started)\nORDER BY started",
+          "rawSql": "SELECT\n  $__time(started),\n  'Stage ' || stage::text as metric,\n  extract(epoch from ended-started)\nFROM\n  pipeline_stages\nWHERE\n  $__timeFilter(started)\n  AND project LIKE '$Project'\nORDER BY started",
           "refId": "A",
           "select": [
             [
@@ -211,7 +212,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(started),\n  project as metric,\n  extract(epoch from ended-started)\nFROM\n  pipeline_stages\nWHERE\n  $__timeFilter(started)\n  and failed = 't'\nORDER BY started",
+          "rawSql": "SELECT\n  $__time(started),\n  project as metric,\n  extract(epoch from ended-started)\nFROM\n  pipeline_stages\nWHERE\n  $__timeFilter(started)\n  AND failed = 't'\n  AND project LIKE '$Project'\nORDER BY started",
           "refId": "A",
           "select": [
             [
@@ -423,7 +424,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  started,\n  project,\n  stage\nFROM\n  pipeline_stages\nWHERE\n  $__timeFilter(started)\n  and failed = 't'\nORDER BY started",
+          "rawSql": "SELECT\n  started,\n  project,\n  stage\nFROM\n  pipeline_stages\nWHERE\n  $__timeFilter(started)\n  AND failed = 't'\n  AND project LIKE '$Project'\nORDER BY started",
           "refId": "A",
           "select": [
             [
@@ -532,7 +533,28 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "tags": [],
+          "text": "%",
+          "value": "%"
+        },
+        "hide": 0,
+        "label": "Project",
+        "name": "Project",
+        "options": [
+          {
+            "selected": true,
+            "text": "%",
+            "value": "%"
+          }
+        ],
+        "query": "%",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
   },
   "time": {
     "from": "now-7d",
