@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1552503932808,
+  "iteration": 1552948984608,
   "links": [],
   "panels": [
     {
@@ -177,7 +177,7 @@
         "x": 12,
         "y": 0
       },
-      "id": 7,
+      "id": 10,
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -198,12 +198,7 @@
       "pointradius": 2,
       "points": true,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "/.*/",
-          "color": "#E02F44"
-        }
-      ],
+      "seriesOverrides": [],
       "stack": false,
       "steppedLine": false,
       "targets": [
@@ -212,7 +207,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__time(started),\n  project as metric,\n  extract(epoch from ended-started)\nFROM\n  pipeline_stages\nWHERE\n  $__timeFilter(started)\n  AND failed = 't'\n  AND project LIKE '$Project'\nORDER BY started",
+          "rawSql": "SELECT\n  min(started) as \"time\",\n  project,\n  extract(epoch from max(ended)-min(started))\nFROM\n  pipeline_stages\nWHERE\n  $__timeFilter(started)\n  AND project LIKE '$Project'\nGROUP BY project\nORDER BY min(started)",
           "refId": "A",
           "select": [
             [
@@ -238,9 +233,9 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Failed Pipeline Tasks",
+      "title": "Pipeline Tasks Total Time",
       "tooltip": {
-        "shared": false,
+        "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
@@ -379,13 +374,123 @@
       }
     },
     {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 7,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": false,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/.*/",
+          "color": "#E02F44"
+        }
+      ],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__time(started),\n  project as metric,\n  extract(epoch from ended-started)\nFROM\n  pipeline_stages\nWHERE\n  $__timeFilter(started)\n  AND failed = 't'\n  AND project LIKE '$Project'\nORDER BY started",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Failed Pipeline Tasks",
+      "tooltip": {
+        "shared": false,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "dtdurations",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
       "columns": [],
       "fontSize": "100%",
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 8
+        "y": 16
       },
       "id": 9,
       "links": [],
